@@ -6,8 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-jupyter = "*"
-rise = "*"
+flask = "*"
+loggly-python-handler = "*"
+flask-restful = "*"
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.8"
