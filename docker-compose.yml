@@ -4,21 +4,29 @@ services:
         build: c1
         ports:
             - "5000:5000"
-        volumes:
-            - ./c1:/app # modified here to take into account the new app path
         links:
-            - db
-            - c2
+            - "c2"
+        depends_on:
+            - "c2"
+        restart: on-failure
+        environment:
+            LOGGING_KEY: 
 
     c2:
         build: c2
-        ports:
-            - "5001:5001"
-        volumes:
-            - ./c2:/app # modified here to take into account the new app path
-        links:
-            - db
-            - c1
+        depends_on:
+            - "db"
+        restart: on-failure
+        environment:
+            PORT: 5001
+            DATABASE_URI: "postgresql://user:pass@db:5432/db"
+            LOGGING_KEY: 
 
     db:
         image: postgres
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_PASSWORD: pass
+            POSTGRES_USER: user
+            POSTGRES_DB: db

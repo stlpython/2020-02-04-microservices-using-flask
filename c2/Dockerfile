@@ -2,7 +2,11 @@ FROM python:3.8
 
 RUN pip install pipenv
 
-RUN pipenv install 
+WORKDIR /app
+
+COPY . /app
+
+RUN pipenv install
 
 EXPOSE 5001
 
